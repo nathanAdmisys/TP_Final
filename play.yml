@@ -1,0 +1,30 @@
+- hosts: all
+  tasks:
+    - name: ensure deps are installed
+      package:
+        name: python3-flask
+
+    - name: make sure the app files are created
+      file:
+        path: /home/vagrant/my-app
+        state: directory
+
+    - name: make sure the app.py is present
+      copy: 
+        src: app.py
+        dest: /home/vagrant/my-app/
+
+    - name: make sure the service file is installed
+      copy: 
+        src: my-app.service
+        dest: /etc/systemd/system/
+    
+    - name: make sure systemd is reloaded
+      systemd:
+        daemon_reload: true
+
+    - name: make sure the service is started
+      service:
+        name: my-app
+        state: started
+
