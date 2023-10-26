@@ -1,0 +1,13 @@
+[Unit]
+Description=My app flask server
+After=network.target
+
+[Service]
+User=vagrant
+Group=vagrant
+WorkingDirectory=/home/vagrant/my-app
+Environment="FLASK_APP=app.py"
+ExecStart=flask run --host=0.0.0.0 --port=8080
+
+[Install]
+WantedBy=multi-user.target
